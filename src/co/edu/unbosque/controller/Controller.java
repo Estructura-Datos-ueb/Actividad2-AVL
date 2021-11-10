@@ -37,7 +37,7 @@ public class Controller {
                         break;
                     case "Eliminar elemento":
                         int numDel =Integer.parseInt(v.leerDato("Ingrese el dato que desea eliminar en el arbol abb"));
-                        abb.eliminar(numDel);
+                        avl.eliminar(numDel);
                         start();
                         break;
                     case "Buscar elemento":

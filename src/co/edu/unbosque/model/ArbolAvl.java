@@ -161,4 +161,131 @@ public class ArbolAvl extends ArbolBinarioBusqueda{
         dato =  valor;
         raiz = insertarAvl(raiz, dato, h);
     }
+
+    public void eliminar (Object valor) throws Exception
+    {
+        Object dato;
+        dato =  valor;
+        Logical flag = new Logical(false);
+        raiz = borrarAvl(raiz, dato, flag);
+    }
+
+    private NodoAvl borrarAvl(NodoAvl r, Object clave,
+                              Logical cambiaAltura) throws Exception
+    {
+        if (r == null)
+        {
+            throw new Exception (" Nodo no encontrado ");
+        }
+        else if (menorQue(r.getDato(), clave))
+        {
+            NodoAvl iz;
+            iz = borrarAvl((NodoAvl)r.getIzquierdo(), clave, cambiaAltura);
+            r.setIzquierdo(iz);
+            if (cambiaAltura.booleanValue())
+                r = equilibrar1(r, cambiaAltura);
+        }
+        else if (mayorQue(r.getDato(), clave))
+        {
+            NodoAvl dr;
+            dr = borrarAvl((NodoAvl)r.getDerecho(), clave, cambiaAltura);
+            r.setDerecho(dr);
+            if (cambiaAltura.booleanValue())
+                r = equilibrar2(r, cambiaAltura);
+        }
+        else // Nodo encontrado
+        {
+            NodoAvl q;
+            q = r; // nodo a quitar del árbol
+            if (q.getIzquierdo()== null)
+            {
+                r = (NodoAvl) q.getDerecho();
+                cambiaAltura.setLogical(true);
+            }
+            else if (q.getDerecho() == null)
+            {
+                r = (NodoAvl) q.getIzquierdo();
+                cambiaAltura.setLogical(true);
+            }
+            else
+            { // tiene rama izquierda y derecha
+                NodoAvl iz = reemplazar(r, (NodoAvl)r.getIzquierdo(), cambiaAltura);
+                r.setIzquierdo(iz);
+                if (cambiaAltura.booleanValue())
+                    r = equilibrar1(r, cambiaAltura);
+            }
+            q = null;
+        }
+        return r;
+    }
+    private
+    NodoAvl reemplazar(NodoAvl n, NodoAvl act, Logical cambiaAltura)
+    {
+        if (act.getDerecho() != null)
+        {
+            NodoAvl d;
+            d = reemplazar(n, (NodoAvl)act.getDerecho(), cambiaAltura);
+            act.setDerecho(d);
+            if (cambiaAltura.booleanValue())
+                act = equilibrar2(act, cambiaAltura);
+        }
+        else
+        {
+            n. setDato(act.getDato());
+            n = act;
+            act = (NodoAvl)act.getIzquierdo();
+            n = null;
+            cambiaAltura.setLogical(true);
+        }
+        return act;
+    }
+    private NodoAvl equilibrar1(NodoAvl n, Logical cambiaAltura)
+    {
+        NodoAvl n1;
+        switch (n.fe)
+        {
+            case -1 : n.fe = 0;
+                break;
+            case 0 : n.fe = 1;
+                cambiaAltura.setLogical(false);
+                break;
+            case +1 : //se aplicar un tipo de rotación derecha
+                n1 = (NodoAvl)n.getDerecho();
+                if (n1.fe >= 0)
+                {
+                    if (n1.fe == 0) //la altura no vuelve a disminuir
+                        cambiaAltura.setLogical(false);
+                    n = rotacionDD(n, n1);
+                }
+                else
+                    n = rotacionDI(n, n1);
+                break;
+        }
+        return n;
+    } private NodoAvl equilibrar2(NodoAvl n, Logical cambiaAltura)
+    {
+        NodoAvl n1;
+        switch (n.fe)
+        {
+            case -1: // Se aplica un tipo de rotación izquierda
+                n1 = (NodoAvl)n.getIzquierdo();
+                if (n1.fe <= 0)
+                {
+                    if (n1.fe == 0)
+                        cambiaAltura.setLogical(false);
+                    n = rotacionII(n, n1);
+                }
+                else
+                    n = rotacionID(n,n1);
+                break;
+            case 0 : n.fe = -1;
+                cambiaAltura.setLogical(false);
+                break;
+            case +1 : n.fe = 0;
+                break;
+        }
+        return n;
+    }
+
+
 }
