@@ -1,6 +1,6 @@
 package co.edu.unbosque.model;
 
-public class ArbolAvl {
+public class ArbolAvl extends ArbolBinarioBusqueda{
     NodoAvl raiz;
     public ArbolAvl(){
         raiz=null;
@@ -84,15 +84,16 @@ public class ArbolAvl {
         n2.fe = 0;
         return n2;
     }
-    public NodoAvl insertarAvl(NodoAvl raiz, Comparador dt, Logical h) throws Exception
+    public NodoAvl insertarAvl(NodoAvl raiz, Object dt, Logical h) throws Exception
     {
         NodoAvl n1;
         if (raiz == null)
         {
             raiz = new NodoAvl(dt);
             h.setLogical(true);
+            this.raiz = raiz;
         }
-        else if (dt.menorQue(raiz.getDato(), dt))
+        else if (menorQue(raiz.getDato(), dt))
         {
             NodoAvl iz;
             iz = insertarAvl((NodoAvl) raiz.getIzquierdo(), dt, h);
@@ -120,7 +121,7 @@ public class ArbolAvl {
                 }
             }
         }
-        else if (dt.mayorQue(raiz.getDato(), dt))
+        else if (mayorQue(raiz.getDato(), dt))
         {
             NodoAvl dr;
             dr = insertarAvl((NodoAvl)raiz.getDerecho(), dt, h);
@@ -153,11 +154,11 @@ public class ArbolAvl {
         return raiz;
     }
 
-    public void insertar (Object valor)throws Exception
+    public void insertarr (Object valor)throws Exception
     {
-        Comparador dato;
+        Object dato;
         Logical h = new Logical(false); // intercambia un valor booleano
-        dato = (Comparador) valor;
+        dato =  valor;
         raiz = insertarAvl(raiz, dato, h);
     }
 }

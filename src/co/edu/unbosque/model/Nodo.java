@@ -6,7 +6,7 @@ public class Nodo {
     protected Nodo derecho;
 
     public Nodo(Object valor){
-
+        this.dato = valor;
     }
 
     public Nodo(Nodo izquierdo,Object dato, Nodo derecho)  {

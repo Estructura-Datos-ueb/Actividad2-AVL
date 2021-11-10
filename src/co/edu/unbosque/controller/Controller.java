@@ -1,10 +1,7 @@
 package co.edu.unbosque.controller;
 
+import co.edu.unbosque.model.*;
 import co.edu.unbosque.view.ViewConsole;
-import co.edu.unbosque.model.Nodo;
-import co.edu.unbosque.model.PilaVector;
-import co.edu.unbosque.model.ArbolBinario;
-import co.edu.unbosque.model.ArbolBinarioBusqueda;
 
 import java.lang.invoke.SwitchPoint;
 
@@ -16,9 +13,11 @@ public class Controller {
     private ArbolBinarioBusqueda abb = new ArbolBinarioBusqueda() ;
     private PilaVector pila = new PilaVector();
     private int caso;
+    private ArbolAvl avl;
 
     public Controller (){
         	v = new ViewConsole();
+        	avl = new ArbolAvl();
         	start();
     }
     
@@ -33,7 +32,7 @@ public class Controller {
                 switch (metodo){
                     case "Agregar elemento":
                         int numAdd =Integer.parseInt(v.leerDato("Ingrese el dato que desea agregar en el arbol abb"));
-                        abb.insertar(numAdd);
+                        avl.insertarr(numAdd);
                         start();
                         break;
                     case "Eliminar elemento":
@@ -69,8 +68,8 @@ public class Controller {
                         start();
                         break;
                     case "Mostrar arbol abb por consola":
-                        abb.print2D(abb.getRaiz());
-                        System.out.println(abb.getRaiz());
+                        avl.print2D(avl.raizArbol());
+                        System.out.println(avl.raizArbol());
                         start();
                         break;
                 }
