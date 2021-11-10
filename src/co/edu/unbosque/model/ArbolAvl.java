@@ -9,6 +9,15 @@ public class ArbolAvl extends ArbolBinarioBusqueda{
         return raiz;
     }
 
+    public Nodo buscar(Object buscado){
+        Object elmBuscado= buscado;
+        if(raiz==null){
+            return null;
+        }else{
+            return localizar (raizArbol(),elmBuscado);
+        }
+    }
+
     private NodoAvl rotacionII(NodoAvl n, NodoAvl n1)
     {
         n.setIzquierdo(n1.getDerecho());
@@ -287,5 +296,13 @@ public class ArbolAvl extends ArbolBinarioBusqueda{
         return n;
     }
 
+    @Override
+    public NodoAvl getRaiz() {
 
+        return raiz;
+    }
+
+    public void setRaiz(NodoAvl raiz) {
+        this.raiz = raiz;
+    }
 }
