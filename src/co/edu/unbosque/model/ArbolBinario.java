@@ -33,15 +33,15 @@ public class ArbolBinario {
     public static void inOrden(Nodo r){
         if(r != null){
 
-            preOrden(r.getIzquierdo());
+            inOrden(r.getIzquierdo());
             visitar(r.getDato());
-            preOrden(r.getDerecho());
+            inOrden(r.getDerecho());
         }
     }
     public static void postOrden(Nodo r){
         if(r != null){
-            preOrden(r.getIzquierdo());
-            preOrden(r.getDerecho());
+            postOrden(r.getIzquierdo());
+            postOrden(r.getDerecho());
             visitar(r.getDato());
         }
     }

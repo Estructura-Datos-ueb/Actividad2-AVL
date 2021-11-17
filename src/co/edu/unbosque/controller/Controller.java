@@ -51,7 +51,8 @@ public class Controller {
                         start();
                         break;
                     case "Recorrer preorden":
-                        ArbolBinario.preOrden(avl.getRaiz());
+                        ArbolBinario.preOrden(avl.
+                                getRaiz());
                         v.mostrarInformacion(arbol.getOrden());
                         arbol.setOrden(null);
                         start();
